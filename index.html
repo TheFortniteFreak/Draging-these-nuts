@@ -22,8 +22,8 @@
     document.body.addEventListener('click', () => {
       if (started) return;
       started = true;
-      audio.volume = 500.0;           // Max volume
-      audio.playbackRate = 3.0;     // Constant 3x speed
+      audio.volume = 1.0;           // Max volume
+      audio.playbackRate = 2.0;     // Constant 3x speed
       audio.loop = true;            // Loop forever
       audio.play().catch(err => {
         console.error('Playback failed:', err);
