@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Good boy</title>
+  <style>
+    body {
+      margin: 0;
+      background: white;
+      height: 100vh;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <audio id="sound" src="gopgopgop.mp3" preload="auto"></audio>
+
+  <script>
+    const audio = document.getElementById('sound');
+    let speed = 1.0;
+    let started = false;
+
+    document.body.addEventListener('click', () => {
+      if (started) return; // Prevent multiple starts
+      started = true;
+      audio.playbackRate = speed;
+      audio.play();
+    });
+
+    audio.addEventListener('ended', () => {
+      speed *= 1.1;
+      audio.currentTime = 0;
+      audio.playbackRate = speed;
+      audio.play();
+    });
+  </script>
+</body>
+</html>
