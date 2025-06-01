@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Looping Audio Speed-Up</title>
+  <title>Endless Loop at 3x</title>
   <style>
     body {
       margin: 0;
@@ -18,8 +18,8 @@
   <script>
     const audio = document.getElementById('sound');
     let speed = 1.0;
+    const maxSpeed = 3.0;
     let started = false;
-    const maxSpeed = 4.0;
 
     document.body.addEventListener('click', () => {
       if (started) return;
@@ -28,7 +28,7 @@
     });
 
     function playWithSpeed() {
-      audio.playbackRate = Math.min(speed, maxSpeed);
+      audio.playbackRate = speed;
       audio.currentTime = 0;
       const playPromise = audio.play();
 
@@ -40,7 +40,10 @@
     }
 
     audio.addEventListener('ended', () => {
-      speed *= 1.1;
+      if (speed < maxSpeed) {
+        speed *= 1.1;
+        if (speed > maxSpeed) speed = maxSpeed;
+      }
       playWithSpeed();
     });
   </script>
