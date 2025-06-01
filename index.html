@@ -2,26 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Gop Gop Gop</title>
+  <title>Good boy</title>
   <style>
     body {
       margin: 0;
+      background: white;
       height: 100vh;
-      background: #000;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <audio id="sound" src="gopgopgop.mp3" preload="auto"></audio>
 
-<audio id="gopAudio" src="gopgopgop.mp3" loop></audio>
+  <script>
+    const audio = document.getElementById('sound');
+    let speed = 1.0;
+    let started = false;
+    const maxSpeed = 4.0;
 
-<script>
-  document.body.addEventListener('click', () => {
-    const audio = document.getElementById('gopAudio');
-    audio.play();
-  }, { once: true }); // Only allow it to start once on the first click
-</script>
+    document.body.addEventListener('click', () => {
+      if (started) return;
+      started = true;
+      playWithSpeed();
+    });
 
+    function playWithSpeed() {
+      audio.playbackRate = Math.min(speed, maxSpeed);
+      audio.currentTime = 0;
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.error('Playback error:', err);
+        });
+      }
+    }
+
+    audio.addEventListener('ended', () => {
+      speed *= 1;
+      playWithSpeed();
+    });
+  </script>
 </body>
 </html>
